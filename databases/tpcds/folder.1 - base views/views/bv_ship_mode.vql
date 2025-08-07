@@ -1,0 +1,44 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bv_ship_mode
+    FOLDER = '/1 - base views'
+    DATASOURCENAME=tpcds
+    SCHEMANAME='${databases.tpcds.folder.1 - base views.views.jdbc.bv_ship_mode.SCHEMANAME}' ESCAPE
+    RELATIONNAME='ship_mode' 
+    OUTPUTSCHEMA (
+        sm_ship_mode_sk = 'sm_ship_mode_sk' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  NOT NULL SORTABLE,
+        sm_ship_mode_id = 'sm_ship_mode_id' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='16', sourcetypeid='1', sourcetypename='bpchar')  NOT NULL SORTABLE,
+        sm_type = 'sm_type' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='30', sourcetypeid='1', sourcetypename='bpchar')  SORTABLE,
+        sm_code = 'sm_code' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='1', sourcetypename='bpchar')  SORTABLE,
+        sm_carrier = 'sm_carrier' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='20', sourcetypeid='1', sourcetypename='bpchar')  SORTABLE,
+        sm_contract = 'sm_contract' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='20', sourcetypeid='1', sourcetypename='bpchar')  SORTABLE
+    )
+    CONSTRAINT 'ship_mode_pkey' PRIMARY KEY ( 'sm_ship_mode_sk' )
+    INDEX 'ship_mode_pkey' OTHER UNIQUE PRIMARY ( 'sm_ship_mode_sk' );
+
+CREATE OR REPLACE TABLE bv_ship_mode I18N au_wst (
+        sm_ship_mode_sk:int (notnull, sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        sm_ship_mode_id:text (notnull, sourcetypeid = '1', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '16'),
+        sm_type:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '30'),
+        sm_code:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        sm_carrier:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '20'),
+        sm_contract:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '20')
+    )
+    FOLDER = '/1 - base views'
+    CONSTRAINT 'ship_mode_pkey' PRIMARY KEY ( 'sm_ship_mode_sk' )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_ship_mode(
+        I18N au_wst
+        CONSTRAINTS (
+             ADD sm_ship_mode_sk (any) OPT ANY
+             ADD sm_ship_mode_id (any) OPT ANY
+             ADD sm_type (any) OPT ANY
+             ADD sm_code (any) OPT ANY
+             ADD sm_carrier (any) OPT ANY
+             ADD sm_contract (any) OPT ANY
+        )
+        OUTPUTLIST (sm_carrier, sm_code, sm_contract, sm_ship_mode_id, sm_ship_mode_sk, sm_type
+        )
+        WRAPPER (jdbc bv_ship_mode)
+    );
+

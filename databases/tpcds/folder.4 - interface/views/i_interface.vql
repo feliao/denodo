@@ -1,0 +1,12 @@
+﻿CREATE OR REPLACE INTERFACE VIEW i_interface (
+        first_name:text,
+        last_name:text,
+        emai_address:text
+    )
+    SET IMPLEMENTATION bv_customer(
+        first_name = c_first_name,
+        last_name = c_last_name,
+        emai_address = c_email_address    
+)
+    FOLDER = '/4 - interface';
+

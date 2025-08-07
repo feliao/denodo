@@ -1,0 +1,38 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bv_inventory
+    FOLDER = '/1 - base views'
+    DATASOURCENAME=tpcds
+    SCHEMANAME='${databases.tpcds.folder.1 - base views.views.jdbc.bv_inventory.SCHEMANAME}' ESCAPE
+    RELATIONNAME='inventory' 
+    OUTPUTSCHEMA (
+        inv_date_sk = 'inv_date_sk' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  NOT NULL SORTABLE,
+        inv_item_sk = 'inv_item_sk' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  NOT NULL SORTABLE,
+        inv_warehouse_sk = 'inv_warehouse_sk' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  NOT NULL SORTABLE,
+        inv_quantity_on_hand = 'inv_quantity_on_hand' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  SORTABLE
+    )
+    CONSTRAINT 'inventory_pkey' PRIMARY KEY ( 'inv_date_sk' , 'inv_item_sk' , 'inv_warehouse_sk' )
+    INDEX 'inventory_pkey' OTHER UNIQUE PRIMARY ( 'inv_date_sk' , 'inv_item_sk' , 'inv_warehouse_sk' );
+
+CREATE OR REPLACE TABLE bv_inventory I18N au_wst (
+        inv_date_sk:int (notnull, sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        inv_item_sk:int (notnull, sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        inv_warehouse_sk:int (notnull, sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        inv_quantity_on_hand:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10')
+    )
+    FOLDER = '/1 - base views'
+    CONSTRAINT 'inventory_pkey' PRIMARY KEY ( 'inv_date_sk' , 'inv_item_sk' , 'inv_warehouse_sk' )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_inventory(
+        I18N au_wst
+        CONSTRAINTS (
+             ADD inv_date_sk (any) OPT ANY
+             ADD inv_item_sk (any) OPT ANY
+             ADD inv_warehouse_sk (any) OPT ANY
+             ADD inv_quantity_on_hand (any) OPT ANY
+        )
+        OUTPUTLIST (inv_date_sk, inv_item_sk, inv_quantity_on_hand, inv_warehouse_sk
+        )
+        WRAPPER (jdbc bv_inventory)
+    );
+

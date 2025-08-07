@@ -1,0 +1,41 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bv_household_demographics
+    FOLDER = '/1 - base views'
+    DATASOURCENAME=tpcds
+    SCHEMANAME='${databases.tpcds.folder.1 - base views.views.jdbc.bv_household_demographics.SCHEMANAME}' ESCAPE
+    RELATIONNAME='household_demographics' 
+    OUTPUTSCHEMA (
+        hd_demo_sk = 'hd_demo_sk' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  NOT NULL SORTABLE,
+        hd_income_band_sk = 'hd_income_band_sk' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  SORTABLE,
+        hd_buy_potential = 'hd_buy_potential' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='15', sourcetypeid='1', sourcetypename='bpchar')  SORTABLE,
+        hd_dep_count = 'hd_dep_count' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  SORTABLE,
+        hd_vehicle_count = 'hd_vehicle_count' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  SORTABLE
+    )
+    CONSTRAINT 'household_demographics_pkey' PRIMARY KEY ( 'hd_demo_sk' )
+    INDEX 'household_demographics_pkey' OTHER UNIQUE PRIMARY ( 'hd_demo_sk' );
+
+CREATE OR REPLACE TABLE bv_household_demographics I18N au_wst (
+        hd_demo_sk:int (notnull, sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        hd_income_band_sk:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        hd_buy_potential:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '15'),
+        hd_dep_count:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        hd_vehicle_count:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10')
+    )
+    FOLDER = '/1 - base views'
+    CONSTRAINT 'household_demographics_pkey' PRIMARY KEY ( 'hd_demo_sk' )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_household_demographics(
+        I18N au_wst
+        CONSTRAINTS (
+             ADD hd_demo_sk (any) OPT ANY
+             ADD hd_income_band_sk (any) OPT ANY
+             ADD hd_buy_potential (any) OPT ANY
+             ADD hd_dep_count (any) OPT ANY
+             ADD hd_vehicle_count (any) OPT ANY
+        )
+        OUTPUTLIST (hd_buy_potential, hd_demo_sk, hd_dep_count, hd_income_band_sk, hd_vehicle_count
+        )
+        WRAPPER (jdbc bv_household_demographics)
+    );
+

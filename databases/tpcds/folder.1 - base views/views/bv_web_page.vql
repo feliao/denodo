@@ -1,0 +1,68 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bv_web_page
+    FOLDER = '/1 - base views'
+    DATASOURCENAME=tpcds
+    SCHEMANAME='${databases.tpcds.folder.1 - base views.views.jdbc.bv_web_page.SCHEMANAME}' ESCAPE
+    RELATIONNAME='web_page' 
+    OUTPUTSCHEMA (
+        wp_web_page_sk = 'wp_web_page_sk' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  NOT NULL SORTABLE,
+        wp_web_page_id = 'wp_web_page_id' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='16', sourcetypeid='1', sourcetypename='bpchar')  NOT NULL SORTABLE,
+        wp_rec_start_date = 'wp_rec_start_date' :'java.time.LocalDate' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='13', sourcetypeid='91', sourcetypename='date')  SORTABLE,
+        wp_rec_end_date = 'wp_rec_end_date' :'java.time.LocalDate' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='13', sourcetypeid='91', sourcetypename='date')  SORTABLE,
+        wp_creation_date_sk = 'wp_creation_date_sk' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  SORTABLE,
+        wp_access_date_sk = 'wp_access_date_sk' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  SORTABLE,
+        wp_autogen_flag = 'wp_autogen_flag' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='1', sourcetypeid='1', sourcetypename='bpchar')  SORTABLE,
+        wp_customer_sk = 'wp_customer_sk' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  SORTABLE,
+        wp_url = 'wp_url' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='100', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        wp_type = 'wp_type' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='50', sourcetypeid='1', sourcetypename='bpchar')  SORTABLE,
+        wp_char_count = 'wp_char_count' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  SORTABLE,
+        wp_link_count = 'wp_link_count' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  SORTABLE,
+        wp_image_count = 'wp_image_count' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  SORTABLE,
+        wp_max_ad_count = 'wp_max_ad_count' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  SORTABLE
+    )
+    CONSTRAINT 'web_page_pkey' PRIMARY KEY ( 'wp_web_page_sk' )
+    INDEX 'web_page_pkey' OTHER UNIQUE PRIMARY ( 'wp_web_page_sk' );
+
+CREATE OR REPLACE TABLE bv_web_page I18N au_wst (
+        wp_web_page_sk:int (notnull, sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        wp_web_page_id:text (notnull, sourcetypeid = '1', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '16'),
+        wp_rec_start_date:localdate (sourcetypeid = '91', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '13'),
+        wp_rec_end_date:localdate (sourcetypeid = '91', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '13'),
+        wp_creation_date_sk:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        wp_access_date_sk:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        wp_autogen_flag:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '1'),
+        wp_customer_sk:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        wp_url:text (sourcetypeid = '-9', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '100'),
+        wp_type:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '50'),
+        wp_char_count:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        wp_link_count:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        wp_image_count:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        wp_max_ad_count:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10')
+    )
+    FOLDER = '/1 - base views'
+    CONSTRAINT 'web_page_pkey' PRIMARY KEY ( 'wp_web_page_sk' )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_web_page(
+        I18N au_wst
+        CONSTRAINTS (
+             ADD wp_web_page_sk (any) OPT ANY
+             ADD wp_web_page_id (any) OPT ANY
+             ADD wp_rec_start_date (any) OPT ANY
+             ADD wp_rec_end_date (any) OPT ANY
+             ADD wp_creation_date_sk (any) OPT ANY
+             ADD wp_access_date_sk (any) OPT ANY
+             ADD wp_autogen_flag (any) OPT ANY
+             ADD wp_customer_sk (any) OPT ANY
+             ADD wp_url (any) OPT ANY
+             ADD wp_type (any) OPT ANY
+             ADD wp_char_count (any) OPT ANY
+             ADD wp_link_count (any) OPT ANY
+             ADD wp_image_count (any) OPT ANY
+             ADD wp_max_ad_count (any) OPT ANY
+        )
+        OUTPUTLIST (wp_access_date_sk, wp_autogen_flag, wp_char_count, wp_creation_date_sk, wp_customer_sk, wp_image_count, wp_link_count, wp_max_ad_count, wp_rec_end_date, wp_rec_start_date, wp_type, wp_url, wp_web_page_id, wp_web_page_sk
+        )
+        WRAPPER (jdbc bv_web_page)
+    );
+

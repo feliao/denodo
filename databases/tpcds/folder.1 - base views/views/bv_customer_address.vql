@@ -1,0 +1,65 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bv_customer_address
+    FOLDER = '/1 - base views'
+    DATASOURCENAME=tpcds
+    SCHEMANAME='${databases.tpcds.folder.1 - base views.views.jdbc.bv_customer_address.SCHEMANAME}' ESCAPE
+    RELATIONNAME='customer_address' 
+    OUTPUTSCHEMA (
+        ca_address_sk = 'ca_address_sk' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  NOT NULL SORTABLE,
+        ca_address_id = 'ca_address_id' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='16', sourcetypeid='1', sourcetypename='bpchar')  NOT NULL SORTABLE,
+        ca_street_number = 'ca_street_number' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='1', sourcetypename='bpchar')  SORTABLE,
+        ca_street_name = 'ca_street_name' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='60', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        ca_street_type = 'ca_street_type' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='15', sourcetypeid='1', sourcetypename='bpchar')  SORTABLE,
+        ca_suite_number = 'ca_suite_number' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='1', sourcetypename='bpchar')  SORTABLE,
+        ca_city = 'ca_city' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='60', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        ca_county = 'ca_county' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='30', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        ca_state = 'ca_state' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='2', sourcetypeid='1', sourcetypename='bpchar')  SORTABLE,
+        ca_zip = 'ca_zip' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='1', sourcetypename='bpchar')  SORTABLE,
+        ca_country = 'ca_country' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='20', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        ca_gmt_offset = 'ca_gmt_offset' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='2', sourcetyperadix='10', sourcetypesize='5', sourcetypeid='2', sourcetypename='numeric')  SORTABLE,
+        ca_location_type = 'ca_location_type' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='20', sourcetypeid='1', sourcetypename='bpchar')  SORTABLE
+    )
+    CONSTRAINT 'customer_address_pkey' PRIMARY KEY ( 'ca_address_sk' )
+    INDEX 'customer_address_pkey' OTHER UNIQUE PRIMARY ( 'ca_address_sk' );
+
+CREATE OR REPLACE TABLE bv_customer_address I18N au_wst (
+        ca_address_sk:int (notnull, sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        ca_address_id:text (notnull, sourcetypeid = '1', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '16'),
+        ca_street_number:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        ca_street_name:text (sourcetypeid = '-9', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '60'),
+        ca_street_type:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '15'),
+        ca_suite_number:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        ca_city:text (sourcetypeid = '-9', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '60'),
+        ca_county:text (sourcetypeid = '-9', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '30'),
+        ca_state:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '2'),
+        ca_zip:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        ca_country:text (sourcetypeid = '-9', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '20'),
+        ca_gmt_offset:decimal (sourcetypeid = '2', sourcetyperadix = '10', sourcetypedecimals = '2', sourcetypesize = '5'),
+        ca_location_type:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '20')
+    )
+    FOLDER = '/1 - base views'
+    CONSTRAINT 'customer_address_pkey' PRIMARY KEY ( 'ca_address_sk' )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_customer_address(
+        I18N au_wst
+        CONSTRAINTS (
+             ADD ca_address_sk (any) OPT ANY
+             ADD ca_address_id (any) OPT ANY
+             ADD ca_street_number (any) OPT ANY
+             ADD ca_street_name (any) OPT ANY
+             ADD ca_street_type (any) OPT ANY
+             ADD ca_suite_number (any) OPT ANY
+             ADD ca_city (any) OPT ANY
+             ADD ca_county (any) OPT ANY
+             ADD ca_state (any) OPT ANY
+             ADD ca_zip (any) OPT ANY
+             ADD ca_country (any) OPT ANY
+             ADD ca_gmt_offset (any) OPT ANY
+             ADD ca_location_type (any) OPT ANY
+        )
+        OUTPUTLIST (ca_address_id, ca_address_sk, ca_city, ca_country, ca_county, ca_gmt_offset, ca_location_type, ca_state, ca_street_name, ca_street_number, ca_street_type, ca_suite_number, ca_zip
+        )
+        WRAPPER (jdbc bv_customer_address)
+    );
+

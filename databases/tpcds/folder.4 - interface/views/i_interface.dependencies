@@ -1,0 +1,8 @@
+﻿1/databases/tpcds/folder.4 - interface/4 - interface.vql
+1/tags/pii.vql
+*/databases/tpcds/folder.1 - base views/1 - base views.vql
+*/tags/pii.vql
+*/databases/tpcds/folder.0 - data sources/0 - data sources.vql
+*/databases/tpcds/folder.0 - data sources/datasources/jdbc/tpcds.vql
+1/databases/tpcds/folder.1 - base views/views/bv_customer.vql
+*/databases/tpcds/folder.1 - base views/views/bv_customer.vql

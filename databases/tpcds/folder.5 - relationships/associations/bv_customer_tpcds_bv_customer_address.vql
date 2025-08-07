@@ -1,0 +1,9 @@
+﻿CREATE OR REPLACE ASSOCIATION bv_customer_tpcds_bv_customer_address REFERENTIAL CONSTRAINT 
+FOLDER = '/5 - relationships'
+    ENDPOINT bv_customer_address bv_customer PRINCIPAL (0,1)
+    ENDPOINT bv_customer bv_customer_address (0,1)
+    ADD MAPPING c_current_addr_sk=ca_address_sk;
+
+ALTER ASSOCIATION bv_customer_tpcds_bv_customer_address
+ LAYOUT (bv_customer = [10, 10, 200, 200], bv_customer_address = [520, 75, 200, 200]);
+

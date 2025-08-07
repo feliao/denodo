@@ -1,0 +1,68 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bv_warehouse
+    FOLDER = '/1 - base views'
+    DATASOURCENAME=tpcds
+    SCHEMANAME='${databases.tpcds.folder.1 - base views.views.jdbc.bv_warehouse.SCHEMANAME}' ESCAPE
+    RELATIONNAME='warehouse' 
+    OUTPUTSCHEMA (
+        w_warehouse_sk = 'w_warehouse_sk' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  NOT NULL SORTABLE,
+        w_warehouse_id = 'w_warehouse_id' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='16', sourcetypeid='1', sourcetypename='bpchar')  NOT NULL SORTABLE,
+        w_warehouse_name = 'w_warehouse_name' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='20', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        w_warehouse_sq_ft = 'w_warehouse_sq_ft' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  SORTABLE,
+        w_street_number = 'w_street_number' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='1', sourcetypename='bpchar')  SORTABLE,
+        w_street_name = 'w_street_name' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='60', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        w_street_type = 'w_street_type' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='15', sourcetypeid='1', sourcetypename='bpchar')  SORTABLE,
+        w_suite_number = 'w_suite_number' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='1', sourcetypename='bpchar')  SORTABLE,
+        w_city = 'w_city' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='60', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        w_county = 'w_county' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='30', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        w_state = 'w_state' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='2', sourcetypeid='1', sourcetypename='bpchar')  SORTABLE,
+        w_zip = 'w_zip' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='1', sourcetypename='bpchar')  SORTABLE,
+        w_country = 'w_country' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='20', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        w_gmt_offset = 'w_gmt_offset' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='2', sourcetyperadix='10', sourcetypesize='5', sourcetypeid='2', sourcetypename='numeric')  SORTABLE
+    )
+    CONSTRAINT 'warehouse_pkey' PRIMARY KEY ( 'w_warehouse_sk' )
+    INDEX 'warehouse_pkey' OTHER UNIQUE PRIMARY ( 'w_warehouse_sk' );
+
+CREATE OR REPLACE TABLE bv_warehouse I18N au_wst (
+        w_warehouse_sk:int (notnull, sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        w_warehouse_id:text (notnull, sourcetypeid = '1', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '16'),
+        w_warehouse_name:text (sourcetypeid = '-9', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '20'),
+        w_warehouse_sq_ft:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        w_street_number:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        w_street_name:text (sourcetypeid = '-9', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '60'),
+        w_street_type:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '15'),
+        w_suite_number:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        w_city:text (sourcetypeid = '-9', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '60'),
+        w_county:text (sourcetypeid = '-9', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '30'),
+        w_state:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '2'),
+        w_zip:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        w_country:text (sourcetypeid = '-9', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '20'),
+        w_gmt_offset:decimal (sourcetypeid = '2', sourcetyperadix = '10', sourcetypedecimals = '2', sourcetypesize = '5')
+    )
+    FOLDER = '/1 - base views'
+    CONSTRAINT 'warehouse_pkey' PRIMARY KEY ( 'w_warehouse_sk' )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_warehouse(
+        I18N au_wst
+        CONSTRAINTS (
+             ADD w_warehouse_sk (any) OPT ANY
+             ADD w_warehouse_id (any) OPT ANY
+             ADD w_warehouse_name (any) OPT ANY
+             ADD w_warehouse_sq_ft (any) OPT ANY
+             ADD w_street_number (any) OPT ANY
+             ADD w_street_name (any) OPT ANY
+             ADD w_street_type (any) OPT ANY
+             ADD w_suite_number (any) OPT ANY
+             ADD w_city (any) OPT ANY
+             ADD w_county (any) OPT ANY
+             ADD w_state (any) OPT ANY
+             ADD w_zip (any) OPT ANY
+             ADD w_country (any) OPT ANY
+             ADD w_gmt_offset (any) OPT ANY
+        )
+        OUTPUTLIST (w_city, w_country, w_county, w_gmt_offset, w_state, w_street_name, w_street_number, w_street_type, w_suite_number, w_warehouse_id, w_warehouse_name, w_warehouse_sk, w_warehouse_sq_ft, w_zip
+        )
+        WRAPPER (jdbc bv_warehouse)
+    );
+

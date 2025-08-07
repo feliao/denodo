@@ -1,0 +1,53 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bv_customer_demographics
+    FOLDER = '/1 - base views'
+    DATASOURCENAME=tpcds
+    SCHEMANAME='${databases.tpcds.folder.1 - base views.views.jdbc.bv_customer_demographics.SCHEMANAME}' ESCAPE
+    RELATIONNAME='customer_demographics' 
+    OUTPUTSCHEMA (
+        cd_demo_sk = 'cd_demo_sk' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  NOT NULL SORTABLE,
+        cd_gender = 'cd_gender' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='1', sourcetypeid='1', sourcetypename='bpchar')  SORTABLE,
+        cd_marital_status = 'cd_marital_status' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='1', sourcetypeid='1', sourcetypename='bpchar')  SORTABLE,
+        cd_education_status = 'cd_education_status' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='20', sourcetypeid='1', sourcetypename='bpchar')  SORTABLE,
+        cd_purchase_estimate = 'cd_purchase_estimate' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  SORTABLE,
+        cd_credit_rating = 'cd_credit_rating' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='1', sourcetypename='bpchar')  SORTABLE,
+        cd_dep_count = 'cd_dep_count' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  SORTABLE,
+        cd_dep_employed_count = 'cd_dep_employed_count' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  SORTABLE,
+        cd_dep_college_count = 'cd_dep_college_count' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  SORTABLE
+    )
+    CONSTRAINT 'customer_demographics_pkey' PRIMARY KEY ( 'cd_demo_sk' )
+    INDEX 'customer_demographics_pkey' OTHER UNIQUE PRIMARY ( 'cd_demo_sk' );
+
+CREATE OR REPLACE TABLE bv_customer_demographics I18N au_wst (
+        cd_demo_sk:int (notnull, sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        cd_gender:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '1'),
+        cd_marital_status:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '1'),
+        cd_education_status:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '20'),
+        cd_purchase_estimate:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        cd_credit_rating:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        cd_dep_count:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        cd_dep_employed_count:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        cd_dep_college_count:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10')
+    )
+    FOLDER = '/1 - base views'
+    CONSTRAINT 'customer_demographics_pkey' PRIMARY KEY ( 'cd_demo_sk' )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_customer_demographics(
+        I18N au_wst
+        CONSTRAINTS (
+             ADD cd_demo_sk (any) OPT ANY
+             ADD cd_gender (any) OPT ANY
+             ADD cd_marital_status (any) OPT ANY
+             ADD cd_education_status (any) OPT ANY
+             ADD cd_purchase_estimate (any) OPT ANY
+             ADD cd_credit_rating (any) OPT ANY
+             ADD cd_dep_count (any) OPT ANY
+             ADD cd_dep_employed_count (any) OPT ANY
+             ADD cd_dep_college_count (any) OPT ANY
+        )
+        OUTPUTLIST (cd_credit_rating, cd_demo_sk, cd_dep_college_count, cd_dep_count, cd_dep_employed_count, cd_education_status, cd_gender, cd_marital_status, cd_purchase_estimate
+        )
+        WRAPPER (jdbc bv_customer_demographics)
+    );
+

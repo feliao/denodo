@@ -1,0 +1,120 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bv_call_center
+    FOLDER = '/1 - base views'
+    DATASOURCENAME=tpcds
+    SCHEMANAME='${databases.tpcds.folder.1 - base views.views.jdbc.bv_call_center.SCHEMANAME}' ESCAPE
+    RELATIONNAME='call_center' 
+    OUTPUTSCHEMA (
+        cc_call_center_sk = 'cc_call_center_sk' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  NOT NULL SORTABLE,
+        cc_call_center_id = 'cc_call_center_id' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='16', sourcetypeid='1', sourcetypename='bpchar')  NOT NULL SORTABLE,
+        cc_rec_start_date = 'cc_rec_start_date' :'java.time.LocalDate' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='13', sourcetypeid='91', sourcetypename='date')  SORTABLE,
+        cc_rec_end_date = 'cc_rec_end_date' :'java.time.LocalDate' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='13', sourcetypeid='91', sourcetypename='date')  SORTABLE,
+        cc_closed_date_sk = 'cc_closed_date_sk' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  SORTABLE,
+        cc_open_date_sk = 'cc_open_date_sk' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  SORTABLE,
+        cc_name = 'cc_name' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='50', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        cc_class = 'cc_class' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='50', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        cc_employees = 'cc_employees' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  SORTABLE,
+        cc_sq_ft = 'cc_sq_ft' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  SORTABLE,
+        cc_hours = 'cc_hours' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='20', sourcetypeid='1', sourcetypename='bpchar')  SORTABLE,
+        cc_manager = 'cc_manager' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='40', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        cc_mkt_id = 'cc_mkt_id' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  SORTABLE,
+        cc_mkt_class = 'cc_mkt_class' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='50', sourcetypeid='1', sourcetypename='bpchar')  SORTABLE,
+        cc_mkt_desc = 'cc_mkt_desc' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='100', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        cc_market_manager = 'cc_market_manager' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='40', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        cc_division = 'cc_division' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  SORTABLE,
+        cc_division_name = 'cc_division_name' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='50', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        cc_company = 'cc_company' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  SORTABLE,
+        cc_company_name = 'cc_company_name' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='50', sourcetypeid='1', sourcetypename='bpchar')  SORTABLE,
+        cc_street_number = 'cc_street_number' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='1', sourcetypename='bpchar')  SORTABLE,
+        cc_street_name = 'cc_street_name' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='60', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        cc_street_type = 'cc_street_type' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='15', sourcetypeid='1', sourcetypename='bpchar')  SORTABLE,
+        cc_suite_number = 'cc_suite_number' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='1', sourcetypename='bpchar')  SORTABLE,
+        cc_city = 'cc_city' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='60', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        cc_county = 'cc_county' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='30', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        cc_state = 'cc_state' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='2', sourcetypeid='1', sourcetypename='bpchar')  SORTABLE,
+        cc_zip = 'cc_zip' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='1', sourcetypename='bpchar')  SORTABLE,
+        cc_country = 'cc_country' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='20', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        cc_gmt_offset = 'cc_gmt_offset' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='2', sourcetyperadix='10', sourcetypesize='5', sourcetypeid='2', sourcetypename='numeric')  SORTABLE,
+        cc_tax_percentage = 'cc_tax_percentage' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='2', sourcetyperadix='10', sourcetypesize='5', sourcetypeid='2', sourcetypename='numeric')  SORTABLE
+    )
+    CONSTRAINT 'call_center_pkey' PRIMARY KEY ( 'cc_call_center_sk' )
+    INDEX 'call_center_pkey' OTHER UNIQUE PRIMARY ( 'cc_call_center_sk' );
+
+CREATE OR REPLACE TABLE bv_call_center I18N au_wst (
+        cc_call_center_sk:int (notnull, sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        cc_call_center_id:text (notnull, sourcetypeid = '1', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '16'),
+        cc_rec_start_date:localdate (sourcetypeid = '91', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '13'),
+        cc_rec_end_date:localdate (sourcetypeid = '91', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '13'),
+        cc_closed_date_sk:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        cc_open_date_sk:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        cc_name:text (sourcetypeid = '-9', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '50'),
+        cc_class:text (sourcetypeid = '-9', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '50'),
+        cc_employees:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        cc_sq_ft:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        cc_hours:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '20'),
+        cc_manager:text (sourcetypeid = '-9', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '40'),
+        cc_mkt_id:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        cc_mkt_class:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '50'),
+        cc_mkt_desc:text (sourcetypeid = '-9', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '100'),
+        cc_market_manager:text (sourcetypeid = '-9', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '40'),
+        cc_division:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        cc_division_name:text (sourcetypeid = '-9', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '50'),
+        cc_company:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        cc_company_name:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '50'),
+        cc_street_number:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        cc_street_name:text (sourcetypeid = '-9', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '60'),
+        cc_street_type:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '15'),
+        cc_suite_number:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        cc_city:text (sourcetypeid = '-9', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '60'),
+        cc_county:text (sourcetypeid = '-9', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '30'),
+        cc_state:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '2'),
+        cc_zip:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        cc_country:text (sourcetypeid = '-9', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '20'),
+        cc_gmt_offset:decimal (sourcetypeid = '2', sourcetyperadix = '10', sourcetypedecimals = '2', sourcetypesize = '5'),
+        cc_tax_percentage:decimal (sourcetypeid = '2', sourcetyperadix = '10', sourcetypedecimals = '2', sourcetypesize = '5')
+    )
+    FOLDER = '/1 - base views'
+    CONSTRAINT 'call_center_pkey' PRIMARY KEY ( 'cc_call_center_sk' )
+    CACHE FULL
+    BATCHSIZEINCACHE DEFAULT
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_call_center(
+        I18N au_wst
+        CONSTRAINTS (
+             ADD cc_call_center_sk (any) OPT ANY
+             ADD cc_call_center_id (any) OPT ANY
+             ADD cc_rec_start_date (any) OPT ANY
+             ADD cc_rec_end_date (any) OPT ANY
+             ADD cc_closed_date_sk (any) OPT ANY
+             ADD cc_open_date_sk (any) OPT ANY
+             ADD cc_name (any) OPT ANY
+             ADD cc_class (any) OPT ANY
+             ADD cc_employees (any) OPT ANY
+             ADD cc_sq_ft (any) OPT ANY
+             ADD cc_hours (any) OPT ANY
+             ADD cc_manager (any) OPT ANY
+             ADD cc_mkt_id (any) OPT ANY
+             ADD cc_mkt_class (any) OPT ANY
+             ADD cc_mkt_desc (any) OPT ANY
+             ADD cc_market_manager (any) OPT ANY
+             ADD cc_division (any) OPT ANY
+             ADD cc_division_name (any) OPT ANY
+             ADD cc_company (any) OPT ANY
+             ADD cc_company_name (any) OPT ANY
+             ADD cc_street_number (any) OPT ANY
+             ADD cc_street_name (any) OPT ANY
+             ADD cc_street_type (any) OPT ANY
+             ADD cc_suite_number (any) OPT ANY
+             ADD cc_city (any) OPT ANY
+             ADD cc_county (any) OPT ANY
+             ADD cc_state (any) OPT ANY
+             ADD cc_zip (any) OPT ANY
+             ADD cc_country (any) OPT ANY
+             ADD cc_gmt_offset (any) OPT ANY
+             ADD cc_tax_percentage (any) OPT ANY
+        )
+        OUTPUTLIST (cc_call_center_id, cc_call_center_sk, cc_city, cc_class, cc_closed_date_sk, cc_company, cc_company_name, cc_country, cc_county, cc_division, cc_division_name, cc_employees, cc_gmt_offset, cc_hours, cc_manager, cc_market_manager, cc_mkt_class, cc_mkt_desc, cc_mkt_id, cc_name, cc_open_date_sk, cc_rec_end_date, cc_rec_start_date, cc_sq_ft, cc_state, cc_street_name, cc_street_number, cc_street_type, cc_suite_number, cc_tax_percentage, cc_zip
+        )
+        WRAPPER (jdbc bv_call_center)
+    );
+

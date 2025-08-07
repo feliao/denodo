@@ -1,0 +1,53 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bv_catalog_page
+    FOLDER = '/1 - base views'
+    DATASOURCENAME=tpcds
+    SCHEMANAME='${databases.tpcds.folder.1 - base views.views.jdbc.bv_catalog_page.SCHEMANAME}' ESCAPE
+    RELATIONNAME='catalog_page' 
+    OUTPUTSCHEMA (
+        cp_catalog_page_sk = 'cp_catalog_page_sk' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  NOT NULL SORTABLE,
+        cp_catalog_page_id = 'cp_catalog_page_id' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='16', sourcetypeid='1', sourcetypename='bpchar')  NOT NULL SORTABLE,
+        cp_start_date_sk = 'cp_start_date_sk' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  SORTABLE,
+        cp_end_date_sk = 'cp_end_date_sk' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  SORTABLE,
+        cp_department = 'cp_department' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='50', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        cp_catalog_number = 'cp_catalog_number' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  SORTABLE,
+        cp_catalog_page_number = 'cp_catalog_page_number' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  SORTABLE,
+        cp_description = 'cp_description' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='100', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        cp_type = 'cp_type' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='100', sourcetypeid='12', sourcetypename='varchar')  SORTABLE
+    )
+    CONSTRAINT 'catalog_page_pkey' PRIMARY KEY ( 'cp_catalog_page_sk' )
+    INDEX 'catalog_page_pkey' OTHER UNIQUE PRIMARY ( 'cp_catalog_page_sk' );
+
+CREATE OR REPLACE TABLE bv_catalog_page I18N au_wst (
+        cp_catalog_page_sk:int (notnull, sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        cp_catalog_page_id:text (notnull, sourcetypeid = '1', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '16'),
+        cp_start_date_sk:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        cp_end_date_sk:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        cp_department:text (sourcetypeid = '-9', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '50'),
+        cp_catalog_number:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        cp_catalog_page_number:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        cp_description:text (sourcetypeid = '-9', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '100'),
+        cp_type:text (sourcetypeid = '-9', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '100')
+    )
+    FOLDER = '/1 - base views'
+    CONSTRAINT 'catalog_page_pkey' PRIMARY KEY ( 'cp_catalog_page_sk' )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_catalog_page(
+        I18N au_wst
+        CONSTRAINTS (
+             ADD cp_catalog_page_sk (any) OPT ANY
+             ADD cp_catalog_page_id (any) OPT ANY
+             ADD cp_start_date_sk (any) OPT ANY
+             ADD cp_end_date_sk (any) OPT ANY
+             ADD cp_department (any) OPT ANY
+             ADD cp_catalog_number (any) OPT ANY
+             ADD cp_catalog_page_number (any) OPT ANY
+             ADD cp_description (any) OPT ANY
+             ADD cp_type (any) OPT ANY
+        )
+        OUTPUTLIST (cp_catalog_number, cp_catalog_page_id, cp_catalog_page_number, cp_catalog_page_sk, cp_department, cp_description, cp_end_date_sk, cp_start_date_sk, cp_type
+        )
+        WRAPPER (jdbc bv_catalog_page)
+    );
+

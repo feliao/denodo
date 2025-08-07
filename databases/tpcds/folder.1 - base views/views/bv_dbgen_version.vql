@@ -1,0 +1,35 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bv_dbgen_version
+    FOLDER = '/1 - base views'
+    DATASOURCENAME=tpcds
+    SCHEMANAME='${databases.tpcds.folder.1 - base views.views.jdbc.bv_dbgen_version.SCHEMANAME}' ESCAPE
+    RELATIONNAME='dbgen_version' 
+    OUTPUTSCHEMA (
+        dv_version = 'dv_version' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='16', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        dv_create_date = 'dv_create_date' :'java.time.LocalDate' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='13', sourcetypeid='91', sourcetypename='date')  SORTABLE,
+        dv_create_time = 'dv_create_time' :'java.time.LocalTime' (OPT) (sourcetypedecimals='6', sourcetyperadix='10', sourcetypesize='15', sourcetypeid='92', sourcetypename='time')  SORTABLE,
+        dv_cmdline_args = 'dv_cmdline_args' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='200', sourcetypeid='12', sourcetypename='varchar')  SORTABLE
+    );
+
+CREATE OR REPLACE TABLE bv_dbgen_version I18N au_wst (
+        dv_version:text (sourcetypeid = '-9', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '16'),
+        dv_create_date:localdate (sourcetypeid = '91', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '13'),
+        dv_create_time:time (sourcetypeid = '92', sourcetyperadix = '10', sourcetypedecimals = '6', sourcetypesize = '15'),
+        dv_cmdline_args:text (sourcetypeid = '-9', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '200')
+    )
+    FOLDER = '/1 - base views'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_dbgen_version(
+        I18N au_wst
+        CONSTRAINTS (
+             ADD dv_version (any) OPT ANY
+             ADD dv_create_date (any) OPT ANY
+             ADD dv_create_time (any) OPT ANY
+             ADD dv_cmdline_args (any) OPT ANY
+        )
+        OUTPUTLIST (dv_cmdline_args, dv_create_date, dv_create_time, dv_version
+        )
+        WRAPPER (jdbc bv_dbgen_version)
+    );
+

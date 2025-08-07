@@ -1,0 +1,35 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bv_income_band
+    FOLDER = '/1 - base views'
+    DATASOURCENAME=tpcds
+    SCHEMANAME='${databases.tpcds.folder.1 - base views.views.jdbc.bv_income_band.SCHEMANAME}' ESCAPE
+    RELATIONNAME='income_band' 
+    OUTPUTSCHEMA (
+        ib_income_band_sk = 'ib_income_band_sk' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  NOT NULL SORTABLE,
+        ib_lower_bound = 'ib_lower_bound' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  SORTABLE,
+        ib_upper_bound = 'ib_upper_bound' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  SORTABLE
+    )
+    CONSTRAINT 'income_band_pkey' PRIMARY KEY ( 'ib_income_band_sk' )
+    INDEX 'income_band_pkey' OTHER UNIQUE PRIMARY ( 'ib_income_band_sk' );
+
+CREATE OR REPLACE TABLE bv_income_band I18N au_wst (
+        ib_income_band_sk:int (notnull, sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        ib_lower_bound:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        ib_upper_bound:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10')
+    )
+    FOLDER = '/1 - base views'
+    CONSTRAINT 'income_band_pkey' PRIMARY KEY ( 'ib_income_band_sk' )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_income_band(
+        I18N au_wst
+        CONSTRAINTS (
+             ADD ib_income_band_sk (any) OPT ANY
+             ADD ib_lower_bound (any) OPT ANY
+             ADD ib_upper_bound (any) OPT ANY
+        )
+        OUTPUTLIST (ib_income_band_sk, ib_lower_bound, ib_upper_bound
+        )
+        WRAPPER (jdbc bv_income_band)
+    );
+

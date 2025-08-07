@@ -1,0 +1,85 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bv_customer
+    FOLDER = '/1 - base views'
+    DATASOURCENAME=tpcds
+    SCHEMANAME='${databases.tpcds.folder.1 - base views.views.jdbc.bv_customer.SCHEMANAME}' ESCAPE
+    RELATIONNAME='customer' 
+    OUTPUTSCHEMA (
+        c_customer_sk = 'c_customer_sk' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  NOT NULL SORTABLE,
+        c_customer_id = 'c_customer_id' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='16', sourcetypeid='1', sourcetypename='bpchar')  NOT NULL SORTABLE,
+        c_current_cdemo_sk = 'c_current_cdemo_sk' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  SORTABLE,
+        c_current_hdemo_sk = 'c_current_hdemo_sk' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  SORTABLE,
+        c_current_addr_sk = 'c_current_addr_sk' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  SORTABLE,
+        c_first_shipto_date_sk = 'c_first_shipto_date_sk' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  SORTABLE,
+        c_first_sales_date_sk = 'c_first_sales_date_sk' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  SORTABLE,
+        c_salutation = 'c_salutation' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='1', sourcetypename='bpchar')  SORTABLE,
+        c_first_name = 'c_first_name' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='20', sourcetypeid='1', sourcetypename='bpchar')  SORTABLE,
+        c_last_name = 'c_last_name' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='30', sourcetypeid='1', sourcetypename='bpchar')  SORTABLE,
+        c_preferred_cust_flag = 'c_preferred_cust_flag' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='1', sourcetypeid='1', sourcetypename='bpchar')  SORTABLE,
+        c_birth_day = 'c_birth_day' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  SORTABLE,
+        c_birth_month = 'c_birth_month' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  SORTABLE,
+        c_birth_year = 'c_birth_year' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  SORTABLE,
+        c_birth_country = 'c_birth_country' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='20', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        c_login = 'c_login' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='13', sourcetypeid='1', sourcetypename='bpchar')  SORTABLE,
+        c_email_address = 'c_email_address' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='50', sourcetypeid='1', sourcetypename='bpchar')  SORTABLE,
+        c_last_review_date = 'c_last_review_date' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='1', sourcetypename='bpchar')  SORTABLE
+    )
+    CONSTRAINT 'customer_pkey' PRIMARY KEY ( 'c_customer_sk' )
+    INDEX 'customer_pkey' OTHER UNIQUE PRIMARY ( 'c_customer_sk' );
+
+CREATE OR REPLACE TABLE bv_customer I18N au_wst (
+        c_customer_sk:int (notnull, sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        c_customer_id:text (notnull, sourcetypeid = '1', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '16'),
+        c_current_cdemo_sk:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        c_current_hdemo_sk:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        c_current_addr_sk:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        c_first_shipto_date_sk:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        c_first_sales_date_sk:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        c_salutation:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        c_first_name:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '20') TAGS (pii),
+        c_last_name:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '30') TAGS (pii),
+        c_preferred_cust_flag:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '1'),
+        c_birth_day:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        c_birth_month:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        c_birth_year:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        c_birth_country:text (sourcetypeid = '-9', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '20'),
+        c_login:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '13'),
+        c_email_address:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '50') TAGS (pii),
+        c_last_review_date:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10')
+    )
+    FOLDER = '/1 - base views'
+    DESCRIPTION = 'This is a the base table for customer information. It includes key identifiable information about customers including name, address and phone number.
+'
+    CONSTRAINT 'customer_pkey' PRIMARY KEY ( 'c_customer_sk' )
+    TAGS (pii)
+    CACHE OFF
+    BATCHSIZEINCACHE DEFAULT
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_customer(
+        I18N au_wst
+        CONSTRAINTS (
+             ADD c_customer_sk (any) OPT ANY
+             ADD c_customer_id (any) OPT ANY
+             ADD c_current_cdemo_sk (any) OPT ANY
+             ADD c_current_hdemo_sk (any) OPT ANY
+             ADD c_current_addr_sk (any) OPT ANY
+             ADD c_first_shipto_date_sk (any) OPT ANY
+             ADD c_first_sales_date_sk (any) OPT ANY
+             ADD c_salutation (any) OPT ANY
+             ADD c_first_name (any) OPT ANY
+             ADD c_last_name (any) OPT ANY
+             ADD c_preferred_cust_flag (any) OPT ANY
+             ADD c_birth_day (any) OPT ANY
+             ADD c_birth_month (any) OPT ANY
+             ADD c_birth_year (any) OPT ANY
+             ADD c_birth_country (any) OPT ANY
+             ADD c_login (any) OPT ANY
+             ADD c_email_address (any) OPT ANY
+             ADD c_last_review_date (any) OPT ANY
+        )
+        OUTPUTLIST (c_birth_country, c_birth_day, c_birth_month, c_birth_year, c_current_addr_sk, c_current_cdemo_sk, c_current_hdemo_sk, c_customer_id, c_customer_sk, c_email_address, c_first_name, c_first_sales_date_sk, c_first_shipto_date_sk, c_last_name, c_last_review_date, c_login, c_preferred_cust_flag, c_salutation
+        )
+        WRAPPER (jdbc bv_customer)
+    )
+    SMART_ONLY;
+

@@ -1,0 +1,35 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bv_reason
+    FOLDER = '/1 - base views'
+    DATASOURCENAME=tpcds
+    SCHEMANAME='${databases.tpcds.folder.1 - base views.views.jdbc.bv_reason.SCHEMANAME}' ESCAPE
+    RELATIONNAME='reason' 
+    OUTPUTSCHEMA (
+        r_reason_sk = 'r_reason_sk' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int4')  NOT NULL SORTABLE,
+        r_reason_id = 'r_reason_id' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='16', sourcetypeid='1', sourcetypename='bpchar')  NOT NULL SORTABLE,
+        r_reason_desc = 'r_reason_desc' :'java.lang.String' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='100', sourcetypeid='1', sourcetypename='bpchar')  SORTABLE
+    )
+    CONSTRAINT 'reason_pkey' PRIMARY KEY ( 'r_reason_sk' )
+    INDEX 'reason_pkey' OTHER UNIQUE PRIMARY ( 'r_reason_sk' );
+
+CREATE OR REPLACE TABLE bv_reason I18N au_wst (
+        r_reason_sk:int (notnull, sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        r_reason_id:text (notnull, sourcetypeid = '1', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '16'),
+        r_reason_desc:text (sourcetypeid = '1', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '100')
+    )
+    FOLDER = '/1 - base views'
+    CONSTRAINT 'reason_pkey' PRIMARY KEY ( 'r_reason_sk' )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_reason(
+        I18N au_wst
+        CONSTRAINTS (
+             ADD r_reason_sk (any) OPT ANY
+             ADD r_reason_id (any) OPT ANY
+             ADD r_reason_desc (any) OPT ANY
+        )
+        OUTPUTLIST (r_reason_desc, r_reason_id, r_reason_sk
+        )
+        WRAPPER (jdbc bv_reason)
+    );
+
